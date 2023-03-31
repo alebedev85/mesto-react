@@ -1,11 +1,11 @@
-import logo from './logo.svg';
-import './App.css';
+import './index.css';
+import logo from './images/Logo.svg'
 
 function App() {
   return (
     <div className="page">
       <header className="header">
-        <a href="#"><img src="<%=require('./images/Logo.svg')%>" className="header__logo" alt="Логотип Место" /></a>
+        <a href="#"><img src={logo} className="header__logo" alt="Логотип Место" /></a>
       </header>
       <main className="content">
         <section className="profile" aria-label="Профаил">
