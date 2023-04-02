@@ -1,5 +1,6 @@
-import './index.css';
-import logo from './images/Logo.svg'
+import '../index.css';
+import logo from '../images/Logo.svg';
+import avatar from '../images/Avatar.jpg';
 
 function App() {
   return (
@@ -11,12 +12,12 @@ function App() {
         <section className="profile" aria-label="Профаил">
           <div className="profile__card">
             <button className="profile__edit-avatar-button" type="button" name="editNewAvater">
-              <img src="#" className="profile__avatar" alt="Фото профайла" />
-                <div className="profile__avatar-blackout"></div>
+              <img src={avatar} className="profile__avatar" alt="Фото профайла" />
+              <div className="profile__avatar-blackout"></div>
             </button>
             <div className="profile__info">
-              <h1 className="profile__name"></h1>
-              <p className="profile__job"></p>
+              <h1 className="profile__name">Жак-Ив Кусто</h1>
+              <p className="profile__job">Исследователь океана</p>
               <button className="profile__edit-button" type="button" name="editProfile">
               </button>
             </div>
@@ -34,17 +35,17 @@ function App() {
         <div className="popup__container">
           <button className="popup__close-button" type="button"></button>
           <h2 className="popup__title">Редактировать профиль</h2>
-          <form className="popup__form" name="formEditProfile" novalidate>
+          <form className="popup__form" name="formEditProfile" noValidate>
             <fieldset className="popup__fieldset">
               <div className="popup__field">
                 <input id="name-input" className="popup__input popup__input_input_name" type="text" placeholder="Ваше имя"
-                  name="inputName" minlength="2" maxlength="40" required />
-                  <span className="popup__input-error name-input-error"></span>
+                  name="inputName" minLength="2" maxLength="40" required />
+                <span className="popup__input-error name-input-error"></span>
               </div>
               <div className="popup__field">
                 <input id="job-input" className="popup__input popup__input_input_job" type="text" placeholder="Ваше занятие"
-                  name="inputJob" minlength="2" maxlength="200" required />
-                  <span className="popup__input-error job-input-error"></span>
+                  name="inputJob" minLength="2" maxLength="200" required />
+                <span className="popup__input-error job-input-error"></span>
               </div>
               <button className="popup__save-button" type="submit" name="saveButton">Сохранить</button>
             </fieldset>
@@ -56,17 +57,17 @@ function App() {
         <div className="popup__container">
           <button className="popup__close-button" type="button"></button>
           <h2 className="popup__title">Новое место</h2>
-          <form className="popup__form" name="formAddCard" novalidate>
+          <form className="popup__form" name="formAddCard" noValidate>
             <fieldset className="popup__fieldset">
               <div className="popup__field">
                 <input input id="place-input" className="popup__input popup__input_input_place" type="text"
-                  placeholder="Название" name="cardNameImput" minlength="2" maxlength="30" required />
-                  <span className="popup__input-error place-input-error"></span>
+                  placeholder="Название" name="cardNameImput" minLength="2" maxLength="30" required />
+                <span className="popup__input-error place-input-error"></span>
               </div>
               <div className="popup__field">
                 <input input id="link-input" className="popup__input popup__input_input_link" type="url"
                   placeholder="Ссылка на картинку" name="cardLinkImput" required />
-                  <span className="popup__input-error link-input-error"></span>
+                <span className="popup__input-error link-input-error"></span>
               </div>
               <button className="popup__save-button" type="submit" name="saveButton">Создать</button>
             </fieldset>
@@ -78,7 +79,7 @@ function App() {
         <div className="popup__container popup__container_type_delete">
           <button className="popup__close-button" type="button"></button>
           <h2 className="popup__title">Вы уверены?</h2>
-          <form className="popup__form popup__form_type_delete" name="formDeleteCard" novalidate>
+          <form className="popup__form popup__form_type_delete" name="formDeleteCard" noValidate>
             <fieldset className="popup__fieldset">
               <button className="popup__save-button" type="submit" name="saveButton">Да</button>
             </fieldset>
@@ -90,12 +91,12 @@ function App() {
         <div className="popup__container popup__container_type_edit-avatar">
           <button className="popup__close-button" type="button"></button>
           <h2 className="popup__title">Обновить аватар</h2>
-          <form className="popup__form" name="formEditAvatar" novalidate>
+          <form className="popup__form" name="formEditAvatar" noValidate>
             <fieldset className="popup__fieldset">
               <div className="popup__field">
                 <input input id="avatar-input" className="popup__input popup__input_input_link" type="url"
                   placeholder="Ссылка на картинку" name="avatar" required />
-                  <span className="popup__input-error avatar-input-error"></span>
+                <span className="popup__input-error avatar-input-error"></span>
               </div>
               <button className="popup__save-button" type="submit" name="saveButton">Сохранить</button>
             </fieldset>
@@ -106,20 +107,20 @@ function App() {
       <div className="popup popup_type_picture">
         <div className="popup__picture-container">
           <img className="popup__picture" src="#" alt="Фото места" />
-            <button className="popup__close-button" type="button"></button>
-            <h2 className="popup__picture-title">Новое место</h2>
+          <button className="popup__close-button" type="button"></button>
+          <h2 className="popup__picture-title">Новое место</h2>
         </div>
       </div>
 
       <template className="element-temlate">
         <article className="element">
           <img className="element__image" src="#" alt="" />
-            <h2 className="element__title"></h2>
-            <div className="element__reaction-container">
-              <button type="button" name="reactionButton" className="element__reaction-button"></button>
-              <p className="element__like-counter"></p>
-            </div>
-            <button type="button" name="buttonTrash" className="element__trash-button"></button>
+          <h2 className="element__title"></h2>
+          <div className="element__reaction-container">
+            <button type="button" name="reactionButton" className="element__reaction-button"></button>
+            <p className="element__like-counter"></p>
+          </div>
+          <button type="button" name="buttonTrash" className="element__trash-button"></button>
         </article>
       </template>
 
