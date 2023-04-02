@@ -91,26 +91,7 @@ function App() {
           </form>
         </div>
       </div>
-
-      <div className="popup popup_type_picture">
-        <div className="popup__picture-container">
-          <img className="popup__picture" src="#" alt="Фото места" />
-          <button className="popup__close-button" type="button"></button>
-          <h2 className="popup__picture-title">Новое место</h2>
-        </div>
-      </div>
-
-      <template className="element-temlate">
-        <article className="element">
-          <img className="element__image" src="#" alt="" />
-          <h2 className="element__title"></h2>
-          <div className="element__reaction-container">
-            <button type="button" name="reactionButton" className="element__reaction-button"></button>
-            <p className="element__like-counter"></p>
-          </div>
-          <button type="button" name="buttonTrash" className="element__trash-button"></button>
-        </article>
-      </template> */}
+ */}
 
     </div>
   );
