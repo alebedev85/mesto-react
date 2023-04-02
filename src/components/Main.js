@@ -1,5 +1,4 @@
 import React from 'react';
-import avatar from '../images/Avatar.jpg';
 import { api } from '../utils/Api';
 
 export default function Main(props) {
@@ -7,14 +6,18 @@ export default function Main(props) {
   const [userName, setUserName] = React.useState('');
   const [userDescription, setUserDescription] = React.useState('');
   const [userAvatar, setUserAvatar] = React.useState('');
+  const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
     api.getCurrentUser()
-    .then((res) => {
-      setUserName(res.name);
-      setUserDescription(res.about);
-      setUserAvatar(res.avatar)
-    })
+      .then((res) => {
+        setUserName(res.name);
+        setUserDescription(res.about);
+        setUserAvatar(res.avatar)
+      })
+    api.getCards()
+      .then((res) => setCards(res));
+    console.log(cards)
   }, []);
 
   return (
@@ -34,6 +37,19 @@ export default function Main(props) {
         <button className="profile__add-button" type="button" name="editCard" onClick={props.onAddPlace} />
       </section>
       <section className="elements" aria-label="Картачки c фотографиями">
+        {
+          cards.map((card) => (
+            <article className="element"key={card._id}>
+              <img className="element__image" src={card.link} alt="" />
+              <h2 className="element__title">{card.name}</h2>
+              <div className="element__reaction-container">
+                <button type="button" name="reactionButton" className="element__reaction-button"></button>
+                <p className="element__like-counter">{card.likes.length}</p>
+              </div>
+              <button type="button" name="buttonTrash" className="element__trash-button"></button>
+            </article>
+          ))
+        }
       </section>
     </main>
   )
