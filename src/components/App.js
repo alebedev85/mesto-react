@@ -1,16 +1,41 @@
+import React from 'react';
 import '../index.css';
-import Header from './Header.js'
-import Main from './Main.js'
-import Footer from './Footer.js'
+import Header from './Header.js';
+import Main from './Main.js';
+import Footer from './Footer.js';
+import PopupWithForm from './PopupWithForm';
 
 function App() {
+  const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
+  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
+  const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
+
+
+  function handleEditAvatarClick() {
+    setEditAvatarPopupOpen(true);
+  }
+  function handleEditProfileClick() {
+    setEditProfilePopupOpen(true);
+  }
+  function handleAddPlaceClick() {
+    setAddPlacePopupOpen(true);
+  }
+
+  function closeAllPopups(){
+    setEditAvatarPopupOpen(false);
+    setEditProfilePopupOpen(false);
+    setAddPlacePopupOpen(false);
+  }
   return (
     <div className="page">
       <Header />
-      <Main />
+      <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onClose={closeAllPopups}/>
       <Footer />
+      <PopupWithForm name={'edit'} title={'Редактировать профиль'} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}/>
+      <PopupWithForm name={'add'} title={'Новое место'} isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}/>
+      <PopupWithForm name={'edit-avatar'} title={'Обновить аватар'} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}/>
 
-      <div className="popup popup_type_edit">
+      {/* <div className="popup popup_type_edit">
         <div className="popup__container">
           <button className="popup__close-button" type="button"></button>
           <h2 className="popup__title">Редактировать профиль</h2>
@@ -101,7 +126,7 @@ function App() {
           </div>
           <button type="button" name="buttonTrash" className="element__trash-button"></button>
         </article>
-      </template>
+      </template> */}
 
     </div>
   );
