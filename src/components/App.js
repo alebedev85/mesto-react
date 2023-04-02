@@ -1,35 +1,14 @@
 import '../index.css';
-import logo from '../images/Logo.svg';
-import avatar from '../images/Avatar.jpg';
+import Header from './Header.js'
+import Main from './Main.js'
+import Footer from './Footer.js'
 
 function App() {
   return (
     <div className="page">
-      <header className="header">
-        <a href="#"><img src={logo} className="header__logo" alt="Логотип Место" /></a>
-      </header>
-      <main className="content">
-        <section className="profile" aria-label="Профаил">
-          <div className="profile__card">
-            <button className="profile__edit-avatar-button" type="button" name="editNewAvater">
-              <img src={avatar} className="profile__avatar" alt="Фото профайла" />
-              <div className="profile__avatar-blackout"></div>
-            </button>
-            <div className="profile__info">
-              <h1 className="profile__name">Жак-Ив Кусто</h1>
-              <p className="profile__job">Исследователь океана</p>
-              <button className="profile__edit-button" type="button" name="editProfile">
-              </button>
-            </div>
-          </div>
-          <button className="profile__add-button" type="button" name="editCard"></button>
-        </section>
-        <section className="elements" aria-label="Картачки c фотографиями">
-        </section>
-      </main>
-      <footer className="footer">
-        <p className="footer__copyright">© 2022 Mesto Russia</p>
-      </footer>
+      <Header />
+      <Main />
+      <Footer />
 
       <div className="popup popup_type_edit">
         <div className="popup__container">
