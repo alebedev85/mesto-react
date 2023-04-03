@@ -1,5 +1,6 @@
 import React from 'react';
 import { api } from '../utils/Api';
+import Card from './Card';
 
 export default function Main(props) {
 
@@ -15,9 +16,14 @@ export default function Main(props) {
         setUserDescription(res.about);
         setUserAvatar(res.avatar)
       })
+      .catch(err => {
+        console.log(err);
+      })
     api.getCards()
-      .then((res) => setCards(res));
-    console.log(cards)
+      .then((res) => setCards(res))
+      .catch(err => {
+        console.log(err);
+      });
   }, []);
 
   return (
@@ -38,17 +44,7 @@ export default function Main(props) {
       </section>
       <section className="elements" aria-label="Картачки c фотографиями">
         {
-          cards.map((card) => (
-            <article className="element"key={card._id}>
-              <img className="element__image" src={card.link} alt="" />
-              <h2 className="element__title">{card.name}</h2>
-              <div className="element__reaction-container">
-                <button type="button" name="reactionButton" className="element__reaction-button"></button>
-                <p className="element__like-counter">{card.likes.length}</p>
-              </div>
-              <button type="button" name="buttonTrash" className="element__trash-button"></button>
-            </article>
-          ))
+          cards.map((card) => <Card key={card._id} card={card}/>)
         }
       </section>
     </main>
