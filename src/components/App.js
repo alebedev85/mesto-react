@@ -47,72 +47,61 @@ function App() {
       <PopupWithForm
         name={'edit-profile'}
         title={'Редактировать профиль'}
+        buttonText={'Сохранить'}
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}>
-        <form className="popup__form" name="formEditProfile" noValidate>
-          <fieldset className="popup__fieldset">
-            <div className="popup__field">
-              <input id="name-input" className="popup__input popup__input_input_name" type="text" placeholder="Ваше имя"
-                name="inputName" minLength="2" maxLength="40" required />
-              <span className="popup__input-error name-input-error"></span>
-            </div>
-            <div className="popup__field">
-              <input id="job-input" className="popup__input popup__input_input_job" type="text" placeholder="Ваше занятие"
-                name="inputJob" minLength="2" maxLength="200" required />
-              <span className="popup__input-error job-input-error"></span>
-            </div>
-            <button className="popup__save-button" type="submit" name="saveButton">Сохранить</button>
-          </fieldset>
-        </form>
+        <>
+          <div className="popup__field">
+            <input id="name-input" className="popup__input popup__input_input_name" type="text" placeholder="Ваше имя"
+              name="inputName" minLength="2" maxLength="40" required />
+            <span className="popup__input-error name-input-error"></span>
+          </div>
+          <div className="popup__field">
+            <input id="job-input" className="popup__input popup__input_input_job" type="text" placeholder="Ваше занятие"
+              name="inputJob" minLength="2" maxLength="200" required />
+            <span className="popup__input-error job-input-error"></span>
+          </div>
+        </>
       </PopupWithForm>
       <PopupWithForm
         name={'add-new-card'}
         title={'Новое место'}
+        buttonText={'Создать'}
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}>
-        <form className="popup__form" name="formAddCard" noValidate>
-          <fieldset className="popup__fieldset">
-            <div className="popup__field">
-              <input id="place-input" className="popup__input popup__input_input_place" type="text"
-                placeholder="Название" name="cardNameImput" minLength="2" maxLength="30" required />
-              <span className="popup__input-error place-input-error"></span>
-            </div>
-            <div className="popup__field">
-              <input id="link-input" className="popup__input popup__input_input_link" type="url"
-                placeholder="Ссылка на картинку" name="cardLinkImput" required />
-              <span className="popup__input-error link-input-error"></span>
-            </div>
-            <button className="popup__save-button" type="submit" name="saveButton">Создать</button>
-          </fieldset>
-        </form>
+        <>
+          <div className="popup__field">
+            <input id="place-input" className="popup__input popup__input_input_place" type="text"
+              placeholder="Название" name="cardNameImput" minLength="2" maxLength="30" required />
+            <span className="popup__input-error place-input-error"></span>
+          </div>
+          <div className="popup__field">
+            <input id="link-input" className="popup__input popup__input_input_link" type="url"
+              placeholder="Ссылка на картинку" name="cardLinkImput" required />
+            <span className="popup__input-error link-input-error"></span>
+          </div>
+        </>
       </PopupWithForm>
       <PopupWithForm
         name={'edit-avatar'}
         title={'Обновить аватар'}
+        buttonText={'Сохранить'}
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}>
-        <form className="popup__form" name="formEditAvatar" noValidate>
-          <fieldset className="popup__fieldset">
-            <div className="popup__field">
-              <input id="avatar-input" className="popup__input popup__input_input_link" type="url"
-                placeholder="Ссылка на картинку" name="avatar" required />
-              <span className="popup__input-error avatar-input-error"></span>
-            </div>
-            <button className="popup__save-button" type="submit" name="saveButton">Сохранить</button>
-          </fieldset>
-        </form>
+        <>
+          <div className="popup__field">
+            <input id="avatar-input" className="popup__input popup__input_input_link" type="url"
+              placeholder="Ссылка на картинку" name="avatar" required />
+            <span className="popup__input-error avatar-input-error"></span>
+          </div>
+        </>
       </PopupWithForm>
       <PopupWithForm
         name={'delete-card'}
         title={'Вы уверены?'}
+        buttonText={'Да'}
         isOpen={isDeleteCardPopupOpen}
-        onClose={closeAllPopups}>
-        <form className="popup__form popup__form_type_delete" name="formDeleteCard" noValidate>
-          <fieldset className="popup__fieldset">
-            <button className="popup__save-button" type="submit" name="saveButton">Да</button>
-          </fieldset>
-        </form>
-      </PopupWithForm>
+        onClose={closeAllPopups} />
       <ImagePopup
         name={'picture'}
         card={selectedCard}
