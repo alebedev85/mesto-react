@@ -4,11 +4,13 @@ import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
 import PopupWithForm from './PopupWithForm';
+import ImagePopup from './ImagePopup';
 
 function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState({});
 
 
   function handleEditAvatarClick() {
@@ -20,18 +22,32 @@ function App() {
   function handleAddPlaceClick() {
     setAddPlacePopupOpen(true);
   }
+  function handleCardClick(card) {
+    setSelectedCard(card);
+  }
 
   function closeAllPopups() {
     setEditAvatarPopupOpen(false);
     setEditProfilePopupOpen(false);
     setAddPlacePopupOpen(false);
+    setSelectedCard({});
   }
+
   return (
     <div className="page">
       <Header />
-      <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onClose={closeAllPopups} />
+      <Main
+        onEditProfile={handleEditProfileClick}
+        onAddPlace={handleAddPlaceClick}
+        onEditAvatar={handleEditAvatarClick}
+        onClose={closeAllPopups}
+        onCardClick={handleCardClick} />
       <Footer />
-      <PopupWithForm name={'edit'} title={'Редактировать профиль'} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
+      <PopupWithForm
+        name={'edit'}
+        title={'Редактировать профиль'}
+        isOpen={isEditProfilePopupOpen}
+        onClose={closeAllPopups}>
         <form className="popup__form" name="formEditProfile" noValidate>
           <fieldset className="popup__fieldset">
             <div className="popup__field">
@@ -48,7 +64,11 @@ function App() {
           </fieldset>
         </form>
       </PopupWithForm>
-      <PopupWithForm name={'add'} title={'Новое место'} isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
+      <PopupWithForm
+        name={'add'}
+        title={'Новое место'}
+        isOpen={isAddPlacePopupOpen}
+        onClose={closeAllPopups}>
         <form className="popup__form" name="formAddCard" noValidate>
           <fieldset className="popup__fieldset">
             <div className="popup__field">
@@ -65,7 +85,11 @@ function App() {
           </fieldset>
         </form>
       </PopupWithForm>
-      <PopupWithForm name={'edit-avatar'} title={'Обновить аватар'} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} children={(<></>)}>
+      <PopupWithForm
+        name={'edit-avatar'}
+        title={'Обновить аватар'}
+        isOpen={isEditAvatarPopupOpen}
+        onClose={closeAllPopups}>
         <form className="popup__form" name="formEditAvatar" noValidate>
           <fieldset className="popup__fieldset">
             <div className="popup__field">
@@ -77,22 +101,21 @@ function App() {
           </fieldset>
         </form>
       </PopupWithForm>
-
-      {/*
-
-      <div className="popup popup_type_delete">
-        <div className="popup__container popup__container_type_delete">
-          <button className="popup__close-button" type="button"></button>
-          <h2 className="popup__title">Вы уверены?</h2>
-          <form className="popup__form popup__form_type_delete" name="formDeleteCard" noValidate>
-            <fieldset className="popup__fieldset">
-              <button className="popup__save-button" type="submit" name="saveButton">Да</button>
-            </fieldset>
-          </form>
-        </div>
-      </div>
- */}
-
+      <PopupWithForm
+        name={'edit-delete'}
+        title={'Вы уверены?'}
+        isOpen={isEditAvatarPopupOpen}
+        onClose={closeAllPopups}>
+        <form className="popup__form popup__form_type_delete" name="formDeleteCard" noValidate>
+          <fieldset className="popup__fieldset">
+            <button className="popup__save-button" type="submit" name="saveButton">Да</button>
+          </fieldset>
+        </form>
+      </PopupWithForm>
+      <ImagePopup
+        name={'picture'}
+        card={selectedCard}
+        onClose={closeAllPopups} />
     </div>
   );
 }

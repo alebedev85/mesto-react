@@ -44,7 +44,7 @@ export default function Main(props) {
       </section>
       <section className="elements" aria-label="Картачки c фотографиями">
         {
-          cards.map((card) => <Card key={card._id} card={card}/>)
+          cards.map((card) => <Card key={card._id} card={card} onCardClick={props.onCardClick}/>)
         }
       </section>
     </main>
