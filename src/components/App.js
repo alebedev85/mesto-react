@@ -10,6 +10,7 @@ function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
+  const [isDeleteCardPopupOpen, setDeleteCardPopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
 
 
@@ -44,7 +45,7 @@ function App() {
         onCardClick={handleCardClick} />
       <Footer />
       <PopupWithForm
-        name={'edit'}
+        name={'edit-profile'}
         title={'Редактировать профиль'}
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}>
@@ -65,7 +66,7 @@ function App() {
         </form>
       </PopupWithForm>
       <PopupWithForm
-        name={'add'}
+        name={'add-new-card'}
         title={'Новое место'}
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}>
@@ -102,9 +103,9 @@ function App() {
         </form>
       </PopupWithForm>
       <PopupWithForm
-        name={'edit-delete'}
+        name={'delete-card'}
         title={'Вы уверены?'}
-        isOpen={isEditAvatarPopupOpen}
+        isOpen={isDeleteCardPopupOpen}
         onClose={closeAllPopups}>
         <form className="popup__form popup__form_type_delete" name="formDeleteCard" noValidate>
           <fieldset className="popup__fieldset">
