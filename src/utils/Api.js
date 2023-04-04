@@ -8,24 +8,27 @@ class Api {
     return {
       authorization: this._token,
       "Content-Type": 'application/json'
-    }
+    };
   }
 
   _getJson(res) {
     if (res.ok) {
       return res.json()
-    } else Promise.reject(`Ошибка: ${res.status}`)
+    } else Promise.reject(`Ошибка: ${res.status}`);
+  }
+
+  _request(url, options) {
+    return fetch(url, options).then(this._getJson);
   }
 
   getCurrentUser() {
-    const p = fetch(`${this._url}/users/me`, {
+    return this._request(`${this._url}/users/me`, {
       headers: this._getHeaders()
-    })
-    return p.then(res => this._getJson(res))
+    });
   }
 
   setUserInfo(name, about) {
-    const p = fetch(`${this._url}/users/me`, {
+    return this._request(`${this._url}/users/me`, {
       method: 'PATCH',
       headers: this._getHeaders(),
       body: JSON.stringify({
@@ -33,56 +36,49 @@ class Api {
         about: about
       })
     });
-    return p.then(res => this._getJson(res))
   }
 
   getCards() {
-    const p = fetch(`${this._url}/cards`, {
+    return this._request(`${this._url}/cards`, {
       headers: this._getHeaders()
-    })
-    return p.then(res => this._getJson(res))
+    });
   }
 
   addNewCard(item) {
-    const p = fetch(`${this._url}/cards`, {
+    return this._request(`${this._url}/cards`, {
       method: 'POST',
       headers: this._getHeaders(),
       body: JSON.stringify(item)
     });
-    return p.then(res => this._getJson(res))
   }
 
   deleteCard(id) {
-    const p = fetch(`${this._url}/cards/${id}`, {
+    return this._request(`${this._url}/cards/${id}`, {
       method: 'DELETE',
       headers: this._getHeaders()
     });
-    return p.then(res => this._getJson(res))
   }
 
   addLike(id) {
-    const p = fetch(`${this._url}/cards/${id}/likes`, {
+    return this._request(`${this._url}/cards/${id}/likes`, {
       method: 'PUT',
       headers: this._getHeaders()
     });
-    return p.then(res => this._getJson(res))
   }
 
   deleteLike(id) {
-    const p = fetch(`${this._url}/cards/${id}/likes`, {
+    return this._request(`${this._url}/cards/${id}/likes`, {
       method: 'DELETE',
       headers: this._getHeaders()
     });
-    return p.then(res => this._getJson(res))
   }
 
   setNewAvatar(input) {
-    const p = fetch(`${this._url}/users/me/avatar`, {
+    return this._request(`${this._url}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._getHeaders(),
       body: JSON.stringify(input)
     });
-    return p.then(res => this._getJson(res))
   }
 }
 
