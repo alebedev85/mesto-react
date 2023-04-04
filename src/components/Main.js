@@ -3,22 +3,24 @@ import { api } from '../utils/Api';
 import Card from './Card';
 
 export default function Main(props) {
-
-  const [userName, setUserName] = React.useState('');
-  const [userDescription, setUserDescription] = React.useState('');
-  const [userAvatar, setUserAvatar] = React.useState('');
-  const [cards, setCards] = React.useState([]);
+  const [userName, setUserName] = React.useState(''); //State for user name
+  const [userDescription, setUserDescription] = React.useState(''); //State for user description
+  const [userAvatar, setUserAvatar] = React.useState(''); //State for user anatar
+  const [cards, setCards] = React.useState([]); //State for cards
 
   React.useEffect(() => {
+    //Get user info
     api.getCurrentUser()
       .then((res) => {
-        setUserName(res.name);
-        setUserDescription(res.about);
-        setUserAvatar(res.avatar)
+        setUserName(res.name); //Set name
+        setUserDescription(res.about); //Set description
+        setUserAvatar(res.avatar) //set avatar
       })
       .catch(err => {
         console.log(err);
       })
+
+    //Get cards
     api.getCards()
       .then((res) => setCards(res))
       .catch(err => {
@@ -44,7 +46,7 @@ export default function Main(props) {
       </section>
       <section className="elements" aria-label="Картачки c фотографиями">
         {
-          cards.map((card) => <Card key={card._id} card={card} onCardClick={props.onCardClick}/>)
+          cards.map((card) => <Card key={card._id} card={card} onCardClick={props.onCardClick} />)
         }
       </section>
     </main>

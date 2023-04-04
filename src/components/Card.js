@@ -1,4 +1,7 @@
 export default function Card(props) {
+  /**
+   * Handler for click on image
+   */
   function handleClick() {
     props.onCardClick(props.card);
   }

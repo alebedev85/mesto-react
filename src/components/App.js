@@ -7,11 +7,11 @@ import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 
 function App() {
-  const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
-  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
-  const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
-  const [isDeleteCardPopupOpen, setDeleteCardPopupOpen] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState({});
+  const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false); //State for EditProfilePopup
+  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false); //State for AddPlacePopupOpen
+  const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false); //State for EditAvatarPopupOpen
+  const [isDeleteCardPopupOpen, setDeleteCardPopupOpen] = React.useState(false); //State for DeleteCardPopupOpen
+  const [selectedCard, setSelectedCard] = React.useState({}); //State for selected card for ImagePopup
 
   /**
    * Handler for avatar edit popup.
