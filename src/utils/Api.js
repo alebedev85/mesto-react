@@ -4,6 +4,10 @@ class Api {
     this._token = token;
   }
 
+  /**
+   * Assembling header for fetch request
+   * @returns header object
+   */
   _getHeaders() {
     return {
       authorization: this._token,
@@ -11,22 +15,41 @@ class Api {
     };
   }
 
+  /**
+   * Get json form fetch
+   * @returns json
+   */
   _getJson(res) {
     if (res.ok) {
       return res.json()
     } else Promise.reject(`Ошибка: ${res.status}`);
   }
 
+
+  /**
+   * Fetch request
+   * @param {string} url - url for request.
+   * @param {object} options - object with method, headers, body for request.
+   * @returns json
+   */
   _request(url, options) {
     return fetch(url, options).then(this._getJson);
   }
 
+  /**
+   * Get user info
+   * @returns json with user info
+   */
   getCurrentUser() {
     return this._request(`${this._url}/users/me`, {
       headers: this._getHeaders()
     });
   }
 
+  /**
+   * Set user info
+   * @returns json with user info
+   */
   setUserInfo(name, about) {
     return this._request(`${this._url}/users/me`, {
       method: 'PATCH',
@@ -38,12 +61,21 @@ class Api {
     });
   }
 
+  /**
+   * Get Cards
+   * @returns json with list of cards
+   */
   getCards() {
     return this._request(`${this._url}/cards`, {
       headers: this._getHeaders()
     });
   }
 
+  /**
+   * Add new card
+   * @param {json} item - new card data.
+   * @returns json with new card.
+   */
   addNewCard(item) {
     return this._request(`${this._url}/cards`, {
       method: 'POST',
@@ -52,6 +84,11 @@ class Api {
     });
   }
 
+  /**
+   * Delete card
+   * @param {string} id - card id.
+   * @returns json ?
+   */
   deleteCard(id) {
     return this._request(`${this._url}/cards/${id}`, {
       method: 'DELETE',
@@ -59,6 +96,11 @@ class Api {
     });
   }
 
+  /**
+   * Add like
+   * @param {string} id - card id.
+   * @returns json of card with new likes
+   */
   addLike(id) {
     return this._request(`${this._url}/cards/${id}/likes`, {
       method: 'PUT',
@@ -66,6 +108,11 @@ class Api {
     });
   }
 
+  /**
+   * Delete like
+   * @param {string} id - card id.
+   * @returns json of card with new likes
+   */
   deleteLike(id) {
     return this._request(`${this._url}/cards/${id}/likes`, {
       method: 'DELETE',
@@ -73,11 +120,16 @@ class Api {
     });
   }
 
-  setNewAvatar(input) {
+  /**
+   * Set new avatar
+   * @param {object} avatar - object with new avatar.
+   * @returns json of card with new likes
+   */
+  setNewAvatar(avatar) {
     return this._request(`${this._url}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._getHeaders(),
-      body: JSON.stringify(input)
+      body: JSON.stringify(avatar)
     });
   }
 }
