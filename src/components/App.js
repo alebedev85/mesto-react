@@ -13,20 +13,42 @@ function App() {
   const [isDeleteCardPopupOpen, setDeleteCardPopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
 
-
+  /**
+   * Handler for avatar edit popup.
+   * Changing state isEditAvatarPopupOpen.
+   */
   function handleEditAvatarClick() {
     setEditAvatarPopupOpen(true);
   }
+
+  /**
+  * Handler for edit profile popup.
+  * Changing state isEditProfilePopupOpen.
+  */
   function handleEditProfileClick() {
     setEditProfilePopupOpen(true);
   }
+
+  /**
+  * Handler for add new place popup.
+  * Changing state isAddPlacePopupOpen.
+  */
   function handleAddPlaceClick() {
     setAddPlacePopupOpen(true);
   }
+
+  /**
+  * Handler for image popup.
+  * Changing state selectedCard.
+  * * @param {object} card - odject with card info.
+  */
   function handleCardClick(card) {
     setSelectedCard(card);
   }
 
+  /**
+  * Close all popups
+  */
   function closeAllPopups() {
     setEditAvatarPopupOpen(false);
     setEditProfilePopupOpen(false);
