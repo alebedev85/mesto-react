@@ -3,7 +3,10 @@ import '../index.css';
 import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
+
 import PopupWithForm from './PopupWithForm';
+import EditProfilePopup from './EditProfilePopup';
+
 import ImagePopup from './ImagePopup';
 import { api } from '../utils/Api';
 import { CurrentUserContext } from './contexts/CurrentUserContext';
@@ -111,7 +114,7 @@ function App() {
   /**
    * Handler delete card
    * @param {object} card - object with card descripion.
-   * @returns json ?
+   * @returns json with list of cards without deleted card
    */
   function handleCardDelete(card) {
     api.deleteCard(card._id)
@@ -119,6 +122,21 @@ function App() {
       .catch(err => {
         console.log(err);
       });;
+  }
+
+
+  /**
+   * Handler to update user
+   * @param {string} name - new name.
+   * @param {string} description - new description.
+   */
+  function handleUpdateUser(name, description) {
+    api.setUserInfo(name, description)
+    .then(updateUser => setCurrentUser(updateUser))
+    .catch(err => {
+      console.log(err);
+    });
+    closeAllPopups();
   }
 
   return (
@@ -135,25 +153,7 @@ function App() {
             onDeleteClick={handleCardDelete}
             onCardLike={handleCardLike} />
           <Footer />
-          <PopupWithForm
-            name={'edit-profile'}
-            title={'Редактировать профиль'}
-            buttonText={'Сохранить'}
-            isOpen={isEditProfilePopupOpen}
-            onClose={closeAllPopups}>
-            <>
-              <div className="popup__field">
-                <input id="name-input" className="popup__input popup__input_input_name" type="text" placeholder="Ваше имя"
-                  name="inputName" minLength="2" maxLength="40" required />
-                <span className="popup__input-error name-input-error"></span>
-              </div>
-              <div className="popup__field">
-                <input id="job-input" className="popup__input popup__input_input_job" type="text" placeholder="Ваше занятие"
-                  name="inputJob" minLength="2" maxLength="200" required />
-                <span className="popup__input-error job-input-error"></span>
-              </div>
-            </>
-          </PopupWithForm>
+          <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser}/>
           <PopupWithForm
             name={'add-new-card'}
             title={'Новое место'}
