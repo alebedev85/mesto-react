@@ -1,7 +1,7 @@
 import React from 'react';
-import { api } from '../utils/Api';
 import Card from './Card';
 import { CurrentUserContext } from './contexts/CurrentUserContext';
+import { CardsContext } from './contexts/CardsContext';
 
 export default function Main(props) {
 
@@ -10,16 +10,7 @@ export default function Main(props) {
   const userName = currentUser.name; //user name
   const userDescription = currentUser.about; //user description
   const userAvatar = currentUser.avatar; //user anatar
-  const [cards, setCards] = React.useState([]); //State for cards
-
-  React.useEffect(() => {
-    //Get cards
-    api.getCards()
-      .then((res) => setCards(res))
-      .catch(err => {
-        console.log(err);
-      });
-  }, []);
+  const cards = React.useContext(CardsContext); //State for cards
 
   return (
     <main className="content">
@@ -39,7 +30,7 @@ export default function Main(props) {
       </section>
       <section className="elements" aria-label="Картачки c фотографиями">
         {
-          cards.map((card) => <Card key={card._id} card={card} onCardClick={props.onCardClick} />)
+          cards.map((card) => <Card key={card._id} card={card} onCardClick={props.onCardClick} onDeleteClick={props.onDeleteClick}/>)
         }
       </section>
     </main>
