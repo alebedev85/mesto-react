@@ -1,7 +1,6 @@
 export default function PopupWithForm({isOpen, onClose, name, title, buttonText, children}) {
 
   function handleEscClose(evt) {
-    console.log('ghghgf')
     if (evt.key === 'Escape') {
       onClose();
     };
