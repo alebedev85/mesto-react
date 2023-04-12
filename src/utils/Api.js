@@ -101,7 +101,7 @@ class Api {
    * @param {string} id - card id.
    * @returns json of card with new likes
    */
-  addLike(id) {
+  _addLike(id) {
     return this._request(`${this._url}/cards/${id}/likes`, {
       method: 'PUT',
       headers: this._getHeaders()
@@ -113,11 +113,21 @@ class Api {
    * @param {string} id - card id.
    * @returns json of card with new likes
    */
-  deleteLike(id) {
+  _deleteLike(id) {
     return this._request(`${this._url}/cards/${id}/likes`, {
       method: 'DELETE',
       headers: this._getHeaders()
     });
+  }
+
+  /**
+   * Change like card status
+   * @param {string} id - card id.
+   * @param {boolean} isLiked - is it my like.
+   * @returns json of card with new likes
+   */
+  changeLikeCardStatus(id, isLiked) {
+    return isLiked ? this._deleteLike(id) : this._addLike(id)
   }
 
   /**

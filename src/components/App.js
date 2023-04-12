@@ -90,6 +90,24 @@ function App() {
     setSelectedCard({});
   }
 
+  /**
+   * Handle Card Like
+   * @param {object} card - object with card descripion.
+   * @returns json of card with new likes
+   */
+  function handleCardLike(card) {
+    //is it my like?
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+
+    api.changeLikeCardStatus(card._id, isLiked)
+      .then((newCard) => {
+        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+      })
+      .catch(err => {
+        console.log(err);
+      });;
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <CardsContext.Provider value={cards}>
@@ -101,7 +119,8 @@ function App() {
             onEditAvatar={handleEditAvatarClick}
             onClose={closeAllPopups}
             onCardClick={handleCardClick}
-            onDeleteClick={handleDeleteClick}/>
+            onDeleteClick={handleDeleteClick}
+            onCardLike={handleCardLike} />
           <Footer />
           <PopupWithForm
             name={'edit-profile'}

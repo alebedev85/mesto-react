@@ -30,7 +30,12 @@ export default function Main(props) {
       </section>
       <section className="elements" aria-label="Картачки c фотографиями">
         {
-          cards.map((card) => <Card key={card._id} card={card} onCardClick={props.onCardClick} onDeleteClick={props.onDeleteClick}/>)
+          cards.map((card) => <Card
+          key={card._id}
+          card={card}
+          onCardClick={props.onCardClick}
+          onDeleteClick={props.onDeleteClick}
+          onCardLike={props.onCardLike}/>)
         }
       </section>
     </main>

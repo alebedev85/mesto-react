@@ -9,16 +9,25 @@ export default function Card(props) {
   /**
    * Handler for click on image
    */
-  function handleClick() {
+  function handleImageClick() {
     props.onCardClick(props.card);
+  }
+
+  /**
+   * Handler for click on like
+   */
+  function handleLikeClick() {
+    props.onCardLike(props.card);
   }
 
   return (
     <article className="element">
-      <img className="element__image" src={props.card.link} alt={`Фото ${props.card.name}`} onClick={handleClick} />
+      <img className="element__image" src={props.card.link} alt={`Фото ${props.card.name}`} onClick={handleImageClick} />
       <h2 className="element__title">{props.card.name}</h2>
       <div className="element__reaction-container">
-        <button type="button" name="reactionButton" className={`element__reaction-button ${isLiked && 'element__reaction-button_activ'}`}></button>
+        <button type="button" name="reactionButton"
+        className={`element__reaction-button ${isLiked && 'element__reaction-button_activ'}`}
+        onClick={handleLikeClick} />
         <p className="element__like-counter">{props.card.likes.length}</p>
       </div>
       {isOwn && <button type="button" name="buttonTrash" className="element__trash-button" onClick={props.onDeleteClick}></button>}
