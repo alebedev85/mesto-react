@@ -87,7 +87,7 @@ class Api {
   /**
    * Delete card
    * @param {string} id - card id.
-   * @returns json ?
+   * @returns message: "Пост удалён"
    */
   deleteCard(id) {
     return this._request(`${this._url}/cards/${id}`, {
