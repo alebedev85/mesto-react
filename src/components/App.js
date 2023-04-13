@@ -125,7 +125,6 @@ function App() {
       });;
   }
 
-
   /**
    * Handler to update user
    * @param {string} name - new name.
@@ -140,11 +139,26 @@ function App() {
     closeAllPopups();
   }
 
+  /**
+   * Handler to update avatar
+   * @param {string} avatar - new avatar.
+   */
+  function handleUpdateAvatar(avatar) {
+    api.setNewAvatar(avatar)
+    .then(updateAvatar => setCurrentUser(updateAvatar))
+    .catch(err => {
+      console.log(err);
+    });
+    closeAllPopups();
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <CardsContext.Provider value={cards}>
         <div className="page">
+
           <Header />
+
           <Main
             onEditProfile={handleEditProfileClick}
             onAddPlace={handleAddPlaceClick}
@@ -154,7 +168,12 @@ function App() {
             onDeleteClick={handleCardDelete}
             onCardLike={handleCardLike} />
           <Footer />
-          <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser}/>
+
+          <EditProfilePopup
+          isOpen={isEditProfilePopupOpen}
+          onClose={closeAllPopups}
+          onUpdateUser={handleUpdateUser}/>
+
           <PopupWithForm
             name={'add-new-card'}
             title={'Новое место'}
@@ -174,7 +193,12 @@ function App() {
               </div>
             </>
           </PopupWithForm>
-          <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
+
+          <EditAvatarPopup
+          isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}
+          onUpdateAvatar={handleUpdateAvatar}/>
+
           <PopupWithForm
             name={'delete-card'}
             title={'Вы уверены?'}

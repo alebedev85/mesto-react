@@ -2,28 +2,22 @@ import React from 'react';
 import PopupWithForm from './PopupWithForm';
 import { CurrentUserContext } from './contexts/CurrentUserContext';
 
-export default function EditAvatarPopup({ isOpen, onClose }) {
+export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
 
   const currentUser = React.useContext(CurrentUserContext);
 
-  const [avatar, setAvatar] = React.useState('')
+  const avatarInputRef = React.useRef();
 
   React.useEffect(() => {
-    setAvatar(currentUser.avatar);
-  }, [currentUser]);
-
-  /**
-   * Hendler for avatar input
-   * */
-  function handleAvatarChange(e) {
-    setAvatar(e.target.value);
-  }
+    avatarInputRef.current.value = '';
+  }, );
 
   /**
    * Hendler for EditAvatarPopup form submit
    * */
   function handleEditAvatarSubmit(e) {
     e.preventDefault();
+    onUpdateAvatar({avatar: avatarInputRef.current.value});
   }
 
   return (
@@ -37,7 +31,7 @@ export default function EditAvatarPopup({ isOpen, onClose }) {
       <>
         <div className="popup__field">
           <input id="avatar-input" className="popup__input popup__input_input_link" type="url"
-            placeholder="Ссылка на картинку" name="avatar" onChange={handleAvatarChange}  required />
+            placeholder="Ссылка на картинку" name="avatar" ref={avatarInputRef} required />
           <span className="popup__input-error avatar-input-error"></span>
         </div>
       </>
