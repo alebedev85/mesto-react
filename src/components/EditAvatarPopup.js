@@ -5,16 +5,13 @@ export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
 
   const avatarInputRef = React.useRef();
 
-  React.useEffect(() => {
-    avatarInputRef.current.value = '';
-  }, );
-
   /**
    * Hendler for EditAvatarPopup form submit
    * */
   function handleEditAvatarSubmit(e) {
     e.preventDefault();
     onUpdateAvatar({avatar: avatarInputRef.current.value});
+    avatarInputRef.current.value = '';
   }
 
   return (

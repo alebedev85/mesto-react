@@ -4,12 +4,12 @@ import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
 
-import PopupWithForm from './PopupWithForm';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
-
+import DeleteCardPopup from './DeleteCardPopup';
 import ImagePopup from './ImagePopup';
+
 import { api } from '../utils/Api';
 import { CurrentUserContext } from './contexts/CurrentUserContext';
 import { CardsContext } from './contexts/CardsContext';
@@ -179,7 +179,7 @@ function App() {
             onEditAvatar={handleEditAvatarClick}
             onClose={closeAllPopups}
             onCardClick={handleCardClick}
-            onDeleteClick={handleCardDelete}
+            onDeleteClick={handleDeleteClick}
             onCardLike={handleCardLike} />
           <Footer />
 
@@ -191,19 +191,23 @@ function App() {
           <AddPlacePopup
             isOpen={isAddPlacePopupOpen}
             onClose={closeAllPopups}
-            onAddNewPlace={handleAddNewPlace}/>
+            onAddNewPlace={handleAddNewPlace} />
 
           <EditAvatarPopup
             isOpen={isEditAvatarPopupOpen}
             onClose={closeAllPopups}
             onUpdateAvatar={handleUpdateAvatar} />
 
-          <PopupWithForm
-            name={'delete-card'}
-            title={'Вы уверены?'}
-            buttonText={'Да'}
+          <EditAvatarPopup
             isOpen={isDeleteCardPopupOpen}
-            onClose={closeAllPopups} />
+            onClose={closeAllPopups}
+            onUpdateAvatar={handleUpdateAvatar} />
+
+          <DeleteCardPopup
+            isOpen={isDeleteCardPopupOpen}
+            onClose={closeAllPopups}
+            hndlerDeleteCartd={handleCardDelete}/>
+
           <ImagePopup
             name={'picture'}
             card={selectedCard}

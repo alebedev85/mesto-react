@@ -1,16 +1,10 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
-import { CardsContext } from './contexts/CardsContext';
 
 export default function AddPlacePopup({ isOpen, onClose, onAddNewPlace }) {
 
   const [name, setName] = React.useState('');
   const [link, setLink] = React.useState('');
-
-  // React.useEffect(() => {
-  //   setName('');
-  //   setLink('');
-  // }, );
 
   /**
      * Hendler for place name input
@@ -32,6 +26,8 @@ export default function AddPlacePopup({ isOpen, onClose, onAddNewPlace }) {
   function handleAddPlaceSubmit(e) {
     e.preventDefault();
     onAddNewPlace({ name: name, link: link });
+    setName('');
+    setLink('');
   }
 
   return (
