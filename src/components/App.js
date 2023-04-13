@@ -6,6 +6,7 @@ import Footer from './Footer.js';
 
 import PopupWithForm from './PopupWithForm';
 import EditProfilePopup from './EditProfilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
 
 import ImagePopup from './ImagePopup';
 import { api } from '../utils/Api';
@@ -173,20 +174,7 @@ function App() {
               </div>
             </>
           </PopupWithForm>
-          <PopupWithForm
-            name={'edit-avatar'}
-            title={'Обновить аватар'}
-            buttonText={'Сохранить'}
-            isOpen={isEditAvatarPopupOpen}
-            onClose={closeAllPopups}>
-            <>
-              <div className="popup__field">
-                <input id="avatar-input" className="popup__input popup__input_input_link" type="url"
-                  placeholder="Ссылка на картинку" name="avatar" required />
-                <span className="popup__input-error avatar-input-error"></span>
-              </div>
-            </>
-          </PopupWithForm>
+          <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
           <PopupWithForm
             name={'delete-card'}
             title={'Вы уверены?'}
