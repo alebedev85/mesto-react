@@ -23,6 +23,7 @@ function App() {
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false); //State for EditAvatarPopupOpen
   const [isDeleteCardPopupOpen, setDeleteCardPopupOpen] = React.useState(false); //State for DeleteCardPopupOpen
   const [selectedCard, setSelectedCard] = React.useState({}); //State for selected card for ImagePopup
+  const [deletedCard, setDeletedCard] = React.useState({}); //State for deleted card for ImagePopup
 
 
   React.useEffect(() => {
@@ -80,7 +81,8 @@ function App() {
   * Handler for delete popup.
   * Changing state isDeleteCardPopupOpen.
   */
-  function handleDeleteClick() {
+  function handleDeleteClick(card) {
+    setDeletedCard(card);
     setDeleteCardPopupOpen(true);
   }
 
@@ -118,9 +120,9 @@ function App() {
    * @param {object} card - object with card descripion.
    * @returns json with list of cards without deleted card
    */
-  function handleCardDelete(card) {
-    api.deleteCard(card._id)
-      .then(setCards((state) => state.filter((c) => c._id !== card._id)))
+  function handleCardDelete() {
+    api.deleteCard(deletedCard._id)
+      .then(setCards((state) => state.filter((c) => c._id !== deletedCard._id)))
       .catch(err => {
         console.log(err);
       });;
@@ -201,7 +203,7 @@ function App() {
           <DeleteCardPopup
             isOpen={isDeleteCardPopupOpen}
             onClose={closeAllPopups}
-            hndlerDeleteCartd={handleCardDelete}/>
+            hedlerDeleteCartd={handleCardDelete}/>
 
           <ImagePopup
             name={'picture'}
