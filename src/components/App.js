@@ -155,17 +155,23 @@ function App() {
     closeAllPopups();
   }
 
+  const [addCardButtonText, setAddCardButtonText] = React.useState('Создать'); //State for add new card button text
   /**
    * Handler to add new place
    * * @param {json} card - new card data.
    */
   function handleAddNewPlace(card) {
+    setAddCardButtonText('Сохранение...');
     api.addNewCard(card)
-      .then(newCard => setCards([newCard, ...cards]))
+      .then(newCard => {
+        setCards([newCard, ...cards]);
+        closeAllPopups();
+      })
       .catch(err => {
         console.log(err);
-      });
-    closeAllPopups();
+      })
+      .finally(() => setAddCardButtonText('Создать'));
+
   }
 
   return (
@@ -193,7 +199,8 @@ function App() {
           <AddPlacePopup
             isOpen={isAddPlacePopupOpen}
             onClose={closeAllPopups}
-            onAddNewPlace={handleAddNewPlace} />
+            onAddNewPlace={handleAddNewPlace}
+            buttonText={addCardButtonText}/>
 
           <EditAvatarPopup
             isOpen={isEditAvatarPopupOpen}
@@ -203,7 +210,7 @@ function App() {
           <DeleteCardPopup
             isOpen={isDeleteCardPopupOpen}
             onClose={closeAllPopups}
-            hedlerDeleteCartd={handleCardDelete}/>
+            hedlerDeleteCartd={handleCardDelete} />
 
           <ImagePopup
             name={'picture'}
