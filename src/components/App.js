@@ -198,11 +198,6 @@ function App() {
             onClose={closeAllPopups}
             onUpdateAvatar={handleUpdateAvatar} />
 
-          <EditAvatarPopup
-            isOpen={isDeleteCardPopupOpen}
-            onClose={closeAllPopups}
-            onUpdateAvatar={handleUpdateAvatar} />
-
           <DeleteCardPopup
             isOpen={isDeleteCardPopupOpen}
             onClose={closeAllPopups}
