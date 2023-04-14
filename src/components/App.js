@@ -32,8 +32,8 @@ function App() {
   const [addCardButtonText, setAddCardButtonText] = React.useState('Создать'); //State for add new card button text
   const [deleteButtonText, setDeleteButtonText] = React.useState('Да'); //State for add new card button text
 
-  const formValidators = {};
-  //Set form Validation//
+  const [formValidators] = React.useState({}); //State for formValidators
+  //Setter for formValidators//
   function enableValidation({ formSelector, ...rest }) {
     const formList = Array.from(document.querySelectorAll(formSelector));
     formList.forEach((formElement) => {
@@ -41,9 +41,6 @@ function App() {
       formValidators[formElement.name].enableValidation();
     });
   };
-
-  enableValidation(validationConfig);
-  console.log(formValidators)
 
   React.useEffect(() => {
     //Get user info
@@ -61,6 +58,7 @@ function App() {
       .catch(err => {
         console.log(err);
       });
+      enableValidation(validationConfig);
   }, []);
 
   /**
