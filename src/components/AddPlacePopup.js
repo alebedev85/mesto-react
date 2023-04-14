@@ -37,7 +37,8 @@ export default function AddPlacePopup({ isOpen, onClose, onAddNewPlace, buttonTe
       buttonText={buttonText}
       isOpen={isOpen}
       onClose={onClose}
-      onSubmit={handleAddPlaceSubmit}>
+      onSubmit={handleAddPlaceSubmit}
+      nameForm = {'formAddCard'}>
       <>
         <div className="popup__field">
           <input id="place-input" className="popup__input popup__input_input_place" type="text"

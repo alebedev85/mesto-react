@@ -1,4 +1,4 @@
-export default function PopupWithForm({ isOpen, onClose, name, title, buttonText, onSubmit, children }) {
+export default function PopupWithForm({ isOpen, onClose, name, title, buttonText, onSubmit, children, nameForm }) {
 
   function handleEscClose(evt) {
     if (evt.key === 'Escape') {
@@ -16,7 +16,7 @@ export default function PopupWithForm({ isOpen, onClose, name, title, buttonText
       <div className="popup__container">
         <button className="popup__close-button" type="button" onClick={onClose} />
         <h2 className="popup__title">{`${title}`}</h2>
-        <form className="popup__form" name="formEditProfile" onSubmit={onSubmit}>
+        <form className="popup__form" name={nameForm} onSubmit={onSubmit} noValidate>
           <fieldset className="popup__fieldset">
             {children}
             <button className="popup__save-button" type="submit" name="saveButton">{buttonText}</button>

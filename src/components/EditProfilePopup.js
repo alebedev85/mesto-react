@@ -43,7 +43,8 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser, button
       buttonText={buttonText}
       isOpen={isOpen}
       onClose={onClose}
-      onSubmit={handleEditProfileSubmit}>
+      onSubmit={handleEditProfileSubmit}
+      nameForm = {'formEditProfile'}>
       <>
         <div className="popup__field">
           <input id="name-input" className="popup__input popup__input_input_name" type="text" placeholder="Ваше имя"

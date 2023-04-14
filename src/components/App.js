@@ -14,6 +14,9 @@ import { api } from '../utils/Api';
 import { CurrentUserContext } from './contexts/CurrentUserContext';
 import { CardsContext } from './contexts/CardsContext';
 
+import validationConfig from '../utils/validationConfig';
+import FormValidator from './FormValidator';
+
 function App() {
   const [currentUser, setCurrentUser] = React.useState({ name: '', about: '' }); //State for current user info
   const [cards, setCards] = React.useState([]); //State for cards
@@ -28,6 +31,19 @@ function App() {
   const [buttonText, setButtonText] = React.useState('Сохранить'); //State for standart button text
   const [addCardButtonText, setAddCardButtonText] = React.useState('Создать'); //State for add new card button text
   const [deleteButtonText, setDeleteButtonText] = React.useState('Да'); //State for add new card button text
+
+  const formValidators = {};
+  //Set form Validation//
+  function enableValidation({ formSelector, ...rest }) {
+    const formList = Array.from(document.querySelectorAll(formSelector));
+    formList.forEach((formElement) => {
+      formValidators[formElement.name] = new FormValidator(formElement, rest);
+      formValidators[formElement.name].enableValidation();
+    });
+  };
+
+  enableValidation(validationConfig);
+  console.log(formValidators)
 
   React.useEffect(() => {
     //Get user info
@@ -52,6 +68,7 @@ function App() {
    * Changing state isEditAvatarPopupOpen.
    */
   function handleEditAvatarClick() {
+    formValidators['formEditAvatar'].resetInputError();
     setEditAvatarPopupOpen(true);
   }
 
@@ -60,6 +77,7 @@ function App() {
   * Changing state isEditProfilePopupOpen.
   */
   function handleEditProfileClick() {
+    formValidators['formEditProfile'].resetInputError();
     setEditProfilePopupOpen(true);
   }
 
@@ -68,6 +86,7 @@ function App() {
   * Changing state isAddPlacePopupOpen.
   */
   function handleAddPlaceClick() {
+    formValidators['formAddCard'].resetInputError();
     setAddPlacePopupOpen(true);
   }
 
