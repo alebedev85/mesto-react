@@ -1,7 +1,7 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
 
-export default function DeleteCardPopup({ isOpen, onClose, hedlerDeleteCartd }) {
+export default function DeleteCardPopup({ isOpen, onClose, hedlerDeleteCartd, buttonText }) {
 
   /**
    * Hendler for EditAvatarPopup form submit
@@ -9,14 +9,13 @@ export default function DeleteCardPopup({ isOpen, onClose, hedlerDeleteCartd }) 
   function handleDeleteCard(e) {
     e.preventDefault();
     hedlerDeleteCartd();
-    onClose();
   }
 
   return (
     <PopupWithForm
       name={'delete-card'}
       title={'Вы уверены?'}
-      buttonText={'Да'}
+      buttonText={buttonText}
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleDeleteCard} />

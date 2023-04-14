@@ -1,7 +1,7 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
 
-export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
+export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, buttonText }) {
 
   const avatarInputRef = React.useRef();
 
@@ -10,7 +10,7 @@ export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
    * */
   function handleEditAvatarSubmit(e) {
     e.preventDefault();
-    onUpdateAvatar({avatar: avatarInputRef.current.value});
+    onUpdateAvatar({ avatar: avatarInputRef.current.value });
     avatarInputRef.current.value = '';
   }
 
@@ -18,7 +18,7 @@ export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
     <PopupWithForm
       name={'edit-avatar'}
       title={'Обновить аватар'}
-      buttonText={'Сохранить'}
+      buttonText={buttonText}
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleEditAvatarSubmit}>

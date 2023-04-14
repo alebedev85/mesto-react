@@ -2,17 +2,17 @@ import React from 'react';
 import PopupWithForm from './PopupWithForm';
 import { CurrentUserContext } from './contexts/CurrentUserContext';
 
-export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
+export default function EditProfilePopup({ isOpen, onClose, onUpdateUser, buttonText }) {
 
   const currentUser = React.useContext(CurrentUserContext);
 
-  const [name, setName] = React.useState(currentUser.name);
-  const [description, setDescription] = React.useState(currentUser.about);
+  const [name, setName] = React.useState('');
+  const [description, setDescription] = React.useState('');
 
-  // React.useEffect(() => {
-  //   setName(currentUser.name);
-  //   setDescription(currentUser.about);
-  // }, [currentUser]);
+  React.useEffect(() => {
+    setName(currentUser.name);
+    setDescription(currentUser.about);
+  }, [currentUser]);
 
   /**
    * Hendler for name input
@@ -40,7 +40,7 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
     <PopupWithForm
       name={'edit-profile'}
       title={'Редактировать профиль'}
-      buttonText={'Сохранить'}
+      buttonText={buttonText}
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleEditProfileSubmit}>

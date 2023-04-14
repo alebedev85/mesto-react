@@ -15,7 +15,7 @@ import { CurrentUserContext } from './contexts/CurrentUserContext';
 import { CardsContext } from './contexts/CardsContext';
 
 function App() {
-  const [currentUser, setCurrentUser] = React.useState({}); //State for current user info
+  const [currentUser, setCurrentUser] = React.useState({ name: '', about: '' }); //State for current user info
   const [cards, setCards] = React.useState([]); //State for cards
 
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false); //State for EditProfilePopup
@@ -25,6 +25,9 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState({}); //State for selected card for ImagePopup
   const [deletedCard, setDeletedCard] = React.useState({}); //State for deleted card for ImagePopup
 
+  const [buttonText, setButtonText] = React.useState('Сохранить'); //State for standart button text
+  const [addCardButtonText, setAddCardButtonText] = React.useState('Создать'); //State for add new card button text
+  const [deleteButtonText, setDeleteButtonText] = React.useState('Да'); //State for add new card button text
 
   React.useEffect(() => {
     //Get user info
@@ -121,11 +124,16 @@ function App() {
    * @returns json with list of cards without deleted card
    */
   function handleCardDelete() {
+    setDeleteButtonText('Удаление...');
     api.deleteCard(deletedCard._id)
-      .then(setCards((state) => state.filter((c) => c._id !== deletedCard._id)))
+      .then(() => {
+        setCards((state) => state.filter((c) => c._id !== deletedCard._id));
+        closeAllPopups()
+      })
       .catch(err => {
-        console.log(err);
-      });;
+        console.log(err)
+      })
+      .finally(() => setDeleteButtonText('Да'));
   }
 
   /**
@@ -134,12 +142,16 @@ function App() {
    * @param {string} description - new description.
    */
   function handleUpdateUser(name, description) {
+    setButtonText('Сохранение...');
     api.setUserInfo(name, description)
-      .then(updateUser => setCurrentUser(updateUser))
+      .then((updateUser) => {
+        setCurrentUser(updateUser);
+        closeAllPopups();
+      })
       .catch(err => {
-        console.log(err);
-      });
-    closeAllPopups();
+        console.log(err)
+      })
+      .finally(() => setButtonText('Сохранить'));
   }
 
   /**
@@ -147,15 +159,19 @@ function App() {
    * @param {string} avatar - new avatar.
    */
   function handleUpdateAvatar(avatar) {
+    setButtonText('Сохранение...');
     api.setNewAvatar(avatar)
-      .then(updateAvatar => setCurrentUser(updateAvatar))
+      .then(updateAvatar => {
+        setCurrentUser(updateAvatar);
+        closeAllPopups();
+      })
       .catch(err => {
         console.log(err);
-      });
-    closeAllPopups();
+      })
+      .finally(() => setButtonText('Сохранить'));
+
   }
 
-  const [addCardButtonText, setAddCardButtonText] = React.useState('Создать'); //State for add new card button text
   /**
    * Handler to add new place
    * * @param {json} card - new card data.
@@ -194,23 +210,26 @@ function App() {
           <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
-            onUpdateUser={handleUpdateUser} />
+            onUpdateUser={handleUpdateUser}
+            buttonText={buttonText} />
 
           <AddPlacePopup
             isOpen={isAddPlacePopupOpen}
             onClose={closeAllPopups}
             onAddNewPlace={handleAddNewPlace}
-            buttonText={addCardButtonText}/>
+            buttonText={addCardButtonText} />
 
           <EditAvatarPopup
             isOpen={isEditAvatarPopupOpen}
             onClose={closeAllPopups}
-            onUpdateAvatar={handleUpdateAvatar} />
+            onUpdateAvatar={handleUpdateAvatar}
+            buttonText={buttonText} />
 
           <DeleteCardPopup
             isOpen={isDeleteCardPopupOpen}
             onClose={closeAllPopups}
-            hedlerDeleteCartd={handleCardDelete} />
+            hedlerDeleteCartd={handleCardDelete}
+            buttonText={deleteButtonText} />
 
           <ImagePopup
             name={'picture'}
