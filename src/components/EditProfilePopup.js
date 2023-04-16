@@ -12,7 +12,7 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser, button
   React.useEffect(() => {
     setName(currentUser.name);
     setDescription(currentUser.about);
-  }, [currentUser]);
+  }, [isOpen]);
 
   /**
    * Hendler for name input
@@ -33,7 +33,7 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser, button
    * */
   function handleEditProfileSubmit(e) {
     e.preventDefault();
-    onUpdateUser(name,description);
+    onUpdateUser(name, description);
   }
 
   return (
@@ -44,16 +44,34 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser, button
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleEditProfileSubmit}
-      nameForm = {'formEditProfile'}>
+      nameForm={'formEditProfile'}>
       <>
         <div className="popup__field">
-          <input id="name-input" className="popup__input popup__input_input_name" type="text" placeholder="Ваше имя"
-            name="inputName" minLength="2" maxLength="40" value={name} onChange={handleNameChange} required />
+          <input
+            id="name-input"
+            className="popup__input popup__input_input_name"
+            type="text"
+            placeholder="Ваше имя"
+            name="inputName"
+            minLength="2"
+            maxLength="40"
+            value={name}
+            onChange={handleNameChange}
+            required />
           <span className="popup__input-error name-input-error"></span>
         </div>
         <div className="popup__field">
-          <input id="job-input" className="popup__input popup__input_input_job" type="text" placeholder="Ваше занятие"
-            name="inputJob" minLength="2" maxLength="200" value={description} onChange={handleDescriptionChange} required />
+          <input
+            id="job-input"
+            className="popup__input popup__input_input_job"
+            type="text"
+            placeholder="Ваше занятие"
+            name="inputJob"
+            minLength="2"
+            maxLength="200"
+            value={description}
+            onChange={handleDescriptionChange}
+            required />
           <span className="popup__input-error job-input-error"></span>
         </div>
       </>
