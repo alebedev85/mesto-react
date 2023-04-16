@@ -26,7 +26,6 @@ export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, butto
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleEditAvatarSubmit}>
-      <>
         <div className="popup__field">
           <input
             id="avatar-input"
@@ -38,7 +37,6 @@ export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, butto
             required />
           <span className="popup__input-error avatar-input-error"></span>
         </div>
-      </>
     </PopupWithForm>
   )
 }

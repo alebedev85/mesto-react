@@ -45,7 +45,6 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser, button
       onClose={onClose}
       onSubmit={handleEditProfileSubmit}
       nameForm={'formEditProfile'}>
-      <>
         <div className="popup__field">
           <input
             id="name-input"
@@ -74,7 +73,6 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser, button
             required />
           <span className="popup__input-error job-input-error"></span>
         </div>
-      </>
     </PopupWithForm>
   )
 }

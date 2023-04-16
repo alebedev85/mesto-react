@@ -42,34 +42,32 @@ export default function AddPlacePopup({ isOpen, onClose, onAddNewPlace, buttonTe
       onClose={onClose}
       onSubmit={handleAddPlaceSubmit}
       nameForm={'formAddCard'}>
-      <>
-        <div className="popup__field">
-          <input
-            id="place-input"
-            className="popup__input popup__input_input_place"
-            type="text"
-            placeholder="Название"
-            name="cardNameImput"
-            minLength="2"
-            maxLength="30"
-            value={name}
-            onChange={handlePlaceNameChange}
-            required />
-          <span className="popup__input-error place-input-error"></span>
-        </div>
-        <div className="popup__field">
-          <input
-            id="link-input"
-            className="popup__input popup__input_input_link"
-            type="url"
-            placeholder="Ссылка на картинку"
-            name="cardLinkImput"
-            value={link}
-            onChange={handlePlaceLinkChange}
-            required />
-          <span className="popup__input-error link-input-error"></span>
-        </div>
-      </>
+      <div className="popup__field">
+        <input
+          id="place-input"
+          className="popup__input popup__input_input_place"
+          type="text"
+          placeholder="Название"
+          name="cardNameImput"
+          minLength="2"
+          maxLength="30"
+          value={name}
+          onChange={handlePlaceNameChange}
+          required />
+        <span className="popup__input-error place-input-error"></span>
+      </div>
+      <div className="popup__field">
+        <input
+          id="link-input"
+          className="popup__input popup__input_input_link"
+          type="url"
+          placeholder="Ссылка на картинку"
+          name="cardLinkImput"
+          value={link}
+          onChange={handlePlaceLinkChange}
+          required />
+        <span className="popup__input-error link-input-error"></span>
+      </div>
     </PopupWithForm>
   )
 }
