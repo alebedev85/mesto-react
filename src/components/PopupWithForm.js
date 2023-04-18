@@ -1,3 +1,4 @@
+import React from 'react';
 export default function PopupWithForm({ isOpen, onClose, name, title, buttonText, onSubmit, children, nameForm }) {
 
   function handleEscClose(evt) {
@@ -11,8 +12,17 @@ export default function PopupWithForm({ isOpen, onClose, name, title, buttonText
       onClose();
     };
   }
+
+  React.useEffect(() => {
+    document.addEventListener('keyup', handleEscClose);
+    return () => {
+      document.removeEventListener('keyup', handleEscClose);
+    }
+  }, [isOpen]);
+
   return (
-    <div className={`popup popup_type_${name} ${isOpen && ('popup_opened')}`} onClick={handleOverlayClose} onKeyDown={handleEscClose} tabIndex={0}>
+    <div className={`popup popup_type_${name} ${isOpen && ('popup_opened')}`}
+      onClick={handleOverlayClose}>
       <div className="popup__container">
         <button className="popup__close-button" type="button" onClick={onClose} />
         <h2 className="popup__title">{`${title}`}</h2>

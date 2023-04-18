@@ -28,19 +28,21 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState({}); //State for selected card for ImagePopup
   const [deletedCard, setDeletedCard] = React.useState({}); //State for deleted card for ImagePopup
 
-  const [buttonText, setButtonText] = React.useState('Сохранить'); //State for standart button text
-  const [addCardButtonText, setAddCardButtonText] = React.useState('Создать'); //State for add new card button text
-  const [deleteButtonText, setDeleteButtonText] = React.useState('Да'); //State for add new card button text
+  const [isLoading, setIsLoading] = React.useState(false); //State for standart button text
 
-  const [formValidators] = React.useState({}); //State for formValidators
+  const [formValidators, setFormValidators] = React.useState({}); //State for formValidators
   //Setter for formValidators//
-  function enableValidation({ formSelector, ...rest }) {
-    const formList = Array.from(document.querySelectorAll(formSelector));
-    formList.forEach((formElement) => {
-      formValidators[formElement.name] = new FormValidator(formElement, rest);
-      formValidators[formElement.name].enableValidation();
-    });
-  };
+  // function enableValidation({ formSelector, ...rest }) {
+  //   const formList = Array.from(document.querySelectorAll(formSelector));
+  //   const newValidators = {}
+  //   formList.forEach((formElement) => {
+  //     newValidators[formElement.name] = new FormValidator(formElement, rest);
+  //     // formValidators[formElement.name].enableValidation();
+  //   });
+  //   console.log(newValidators)
+  //   setFormValidators(newValidators);
+  //   console.log(formValidators)
+  // };
 
   React.useEffect(() => {
     //Get user info
@@ -58,15 +60,17 @@ function App() {
       .catch(err => {
         console.log(err);
       });
-      enableValidation(validationConfig);
+    // enableValidation(validationConfig);
+    // console.log(formValidators)
   }, []);
+
 
   /**
    * Handler for avatar edit popup.
    * Changing state isEditAvatarPopupOpen.
    */
   function handleEditAvatarClick() {
-    formValidators['formEditAvatar'].resetInputError();
+    // formValidators['formEditAvatar'].resetInputError();
     setEditAvatarPopupOpen(true);
   }
 
@@ -75,7 +79,7 @@ function App() {
   * Changing state isEditProfilePopupOpen.
   */
   function handleEditProfileClick() {
-    formValidators['formEditProfile'].resetInputError();
+    // formValidators['formEditProfile'].resetInputError();
     setEditProfilePopupOpen(true);
   }
 
@@ -84,7 +88,7 @@ function App() {
   * Changing state isAddPlacePopupOpen.
   */
   function handleAddPlaceClick() {
-    formValidators['formAddCard'].resetInputError();
+    // formValidators['formAddCard'].resetInputError();
     setAddPlacePopupOpen(true);
   }
 
@@ -141,7 +145,7 @@ function App() {
    * @returns json with list of cards without deleted card
    */
   function handleCardDelete() {
-    setDeleteButtonText('Удаление...');
+    setIsLoading(true);
     api.deleteCard(deletedCard._id)
       .then(() => {
         setCards((state) => state.filter((c) => c._id !== deletedCard._id));
@@ -150,7 +154,7 @@ function App() {
       .catch(err => {
         console.log(err)
       })
-      .finally(() => setDeleteButtonText('Да'));
+      .finally(() => setIsLoading(false));
   }
 
   /**
@@ -159,7 +163,7 @@ function App() {
    * @param {string} description - new description.
    */
   function handleUpdateUser(name, description) {
-    setButtonText('Сохранение...');
+    setIsLoading(true);
     api.setUserInfo(name, description)
       .then((updateUser) => {
         setCurrentUser(updateUser);
@@ -168,7 +172,7 @@ function App() {
       .catch(err => {
         console.log(err)
       })
-      .finally(() => setButtonText('Сохранить'));
+      .finally(() => setIsLoading(false));
   }
 
   /**
@@ -176,7 +180,7 @@ function App() {
    * @param {string} avatar - new avatar.
    */
   function handleUpdateAvatar(avatar) {
-    setButtonText('Сохранение...');
+    setIsLoading(true);
     api.setNewAvatar(avatar)
       .then(updateAvatar => {
         setCurrentUser(updateAvatar);
@@ -185,7 +189,7 @@ function App() {
       .catch(err => {
         console.log(err);
       })
-      .finally(() => setButtonText('Сохранить'));
+      .finally(() => setIsLoading(false));
 
   }
 
@@ -194,7 +198,7 @@ function App() {
    * * @param {json} card - new card data.
    */
   function handleAddNewPlace(card) {
-    setAddCardButtonText('Сохранение...');
+    setIsLoading(true);
     api.addNewCard(card)
       .then(newCard => {
         setCards([newCard, ...cards]);
@@ -203,7 +207,7 @@ function App() {
       .catch(err => {
         console.log(err);
       })
-      .finally(() => setAddCardButtonText('Создать'));
+      .finally(() => setIsLoading(false));
 
   }
 
@@ -228,25 +232,25 @@ function App() {
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
             onUpdateUser={handleUpdateUser}
-            buttonText={buttonText} />
+            buttonText={isLoading ? 'Сохранение...' : 'Сохранить'} />
 
           <AddPlacePopup
             isOpen={isAddPlacePopupOpen}
             onClose={closeAllPopups}
             onAddNewPlace={handleAddNewPlace}
-            buttonText={addCardButtonText} />
+            buttonText={isLoading ? 'Сохранение...' : 'Создать'} />
 
           <EditAvatarPopup
             isOpen={isEditAvatarPopupOpen}
             onClose={closeAllPopups}
             onUpdateAvatar={handleUpdateAvatar}
-            buttonText={buttonText} />
+            buttonText={isLoading ? 'Сохранение...' : 'Сохранить'} />
 
           <DeleteCardPopup
             isOpen={isDeleteCardPopupOpen}
             onClose={closeAllPopups}
             hedlerDeleteCartd={handleCardDelete}
-            buttonText={deleteButtonText} />
+            buttonText={isLoading ? 'Удаление...' : 'Да'} />
 
           <ImagePopup
             name={'picture'}
