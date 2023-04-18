@@ -31,18 +31,18 @@ function App() {
   const [isLoading, setIsLoading] = React.useState(false); //State for standart button text
 
   const [formValidators, setFormValidators] = React.useState({}); //State for formValidators
-  //Setter for formValidators//
-  // function enableValidation({ formSelector, ...rest }) {
-  //   const formList = Array.from(document.querySelectorAll(formSelector));
-  //   const newValidators = {}
-  //   formList.forEach((formElement) => {
-  //     newValidators[formElement.name] = new FormValidator(formElement, rest);
-  //     // formValidators[formElement.name].enableValidation();
-  //   });
-  //   console.log(newValidators)
-  //   setFormValidators(newValidators);
-  //   console.log(formValidators)
-  // };
+  // Setter for formValidators//
+  function enableValidation({ formSelector, ...rest }) {
+    const formList = Array.from(document.querySelectorAll(formSelector));
+    const newValidators = {}
+    formList.forEach((formElement) => {
+      newValidators[formElement.name] = new FormValidator(formElement, rest);
+      // formValidators[formElement.name].enableValidation();
+    });
+    console.log(newValidators)
+    setFormValidators(newValidators);
+    console.log("Внутри функции:", formValidators)
+  };
 
   React.useEffect(() => {
     //Get user info
@@ -60,8 +60,8 @@ function App() {
       .catch(err => {
         console.log(err);
       });
-    // enableValidation(validationConfig);
-    // console.log(formValidators)
+    enableValidation(validationConfig);
+    console.log("Снаружи функции:", formValidators)
   }, []);
 
 
@@ -70,7 +70,7 @@ function App() {
    * Changing state isEditAvatarPopupOpen.
    */
   function handleEditAvatarClick() {
-    // formValidators['formEditAvatar'].resetInputError();
+    formValidators['formEditAvatar'].resetInputError();
     setEditAvatarPopupOpen(true);
   }
 
@@ -79,7 +79,7 @@ function App() {
   * Changing state isEditProfilePopupOpen.
   */
   function handleEditProfileClick() {
-    // formValidators['formEditProfile'].resetInputError();
+    formValidators['formEditProfile'].resetInputError();
     setEditProfilePopupOpen(true);
   }
 
@@ -88,7 +88,7 @@ function App() {
   * Changing state isAddPlacePopupOpen.
   */
   function handleAddPlaceClick() {
-    // formValidators['formAddCard'].resetInputError();
+    formValidators['formAddCard'].resetInputError();
     setAddPlacePopupOpen(true);
   }
 
