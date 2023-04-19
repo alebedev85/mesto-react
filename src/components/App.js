@@ -14,9 +14,6 @@ import { api } from '../utils/Api';
 import { CurrentUserContext } from './contexts/CurrentUserContext';
 import { CardsContext } from './contexts/CardsContext';
 
-import validationConfig from '../utils/validationConfig';
-import FormValidator from './FormValidator';
-
 function App() {
   const [currentUser, setCurrentUser] = React.useState({ name: '', about: '' }); //State for current user info
   const [cards, setCards] = React.useState([]); //State for cards
@@ -29,20 +26,6 @@ function App() {
   const [deletedCard, setDeletedCard] = React.useState({}); //State for deleted card for ImagePopup
 
   const [isLoading, setIsLoading] = React.useState(false); //State for standart button text
-
-  const [formValidators, setFormValidators] = React.useState({}); //State for formValidators
-  // Setter for formValidators//
-  function enableValidation({ formSelector, ...rest }) {
-    const formList = Array.from(document.querySelectorAll(formSelector));
-    const newValidators = {}
-    formList.forEach((formElement) => {
-      newValidators[formElement.name] = new FormValidator(formElement, rest);
-      // formValidators[formElement.name].enableValidation();
-    });
-    console.log(newValidators)
-    setFormValidators(newValidators);
-    console.log("Внутри функции:", formValidators)
-  };
 
   React.useEffect(() => {
     //Get user info
@@ -60,8 +43,6 @@ function App() {
       .catch(err => {
         console.log(err);
       });
-    enableValidation(validationConfig);
-    console.log("Снаружи функции:", formValidators)
   }, []);
 
 
@@ -70,7 +51,6 @@ function App() {
    * Changing state isEditAvatarPopupOpen.
    */
   function handleEditAvatarClick() {
-    formValidators['formEditAvatar'].resetInputError();
     setEditAvatarPopupOpen(true);
   }
 
@@ -79,7 +59,6 @@ function App() {
   * Changing state isEditProfilePopupOpen.
   */
   function handleEditProfileClick() {
-    formValidators['formEditProfile'].resetInputError();
     setEditProfilePopupOpen(true);
   }
 
@@ -88,7 +67,6 @@ function App() {
   * Changing state isAddPlacePopupOpen.
   */
   function handleAddPlaceClick() {
-    formValidators['formAddCard'].resetInputError();
     setAddPlacePopupOpen(true);
   }
 
